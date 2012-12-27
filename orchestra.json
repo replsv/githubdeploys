@@ -1,0 +1,11 @@
+{
+    "name"        : "Github Deploy",
+    "description" : "Github Deploy Tool",
+    "author"      : "Gabriel C",
+    "url"         : "http://lazycoder.ro/",
+    "repository"  : "https://lazycoder.ro/",
+    "version"     : "0.0.1",
+    "config"      : {
+        "handles" : "github"
+    }
+}
