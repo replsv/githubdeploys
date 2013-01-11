@@ -1,13 +1,13 @@
 <?php 
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-namespace Github;
+namespace Githubdeploys;
 
 use Orchestra\Core AS O,
     Orchestra\Acl;
@@ -16,10 +16,10 @@ class Core {
     
     /**
      * 
-     * Start Github's Orchestra heart
+     * Start Githubdeploys's Orchestra heart
      */
     public static function start() {
-        Acl::make('github')->attach(O::memory());
+        Acl::make('githubdeploys')->attach(O::memory());
     }
 
 }

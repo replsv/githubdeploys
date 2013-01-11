@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-namespace Github;
+namespace Githubdeploys;
 
 class Deploy {
 
@@ -63,12 +63,12 @@ class Deploy {
 
     /**
      * 
-     * Deploy from Github repo.
-     * @param \Github\Model\Projects $project
+     * Deploy from Githubdeploys repo.
+     * @param \Githubdeploys\Model\Projects $project
      * @param string $branch Branch name to be deployed
-     * @return \Github\Deploy
+     * @return \Githubdeploys\Deploy
      */
-    public function deploy(\Github\Model\Projects $project, $branch) {
+    public function deploy(\Githubdeploys\Model\Projects $project, $branch) {
 
         /*
          * Set few class variables.
@@ -132,9 +132,9 @@ class Deploy {
     /**
      * 
      * Set project.
-     * @param \Github\Model\Projects $project
+     * @param \Githubdeploys\Model\Projects $project
      */
-    public function setProject(\Github\Model\Projects $project) {
+    public function setProject(\Githubdeploys\Model\Projects $project) {
         $this->project = $project;
     }
 
@@ -149,7 +149,7 @@ class Deploy {
 
     /**
      * 
-     * Retrieve latest hash from Github and set it.
+     * Retrieve latest hash from Githubdeploys and set it.
      */
     public function setHash() {
 
@@ -201,7 +201,7 @@ class Deploy {
 
     /**
      * 
-     * Clone release from Github.
+     * Clone release from Githubdeploys.
      */
     public function cloneRelease() {
 

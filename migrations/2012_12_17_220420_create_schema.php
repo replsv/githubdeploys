@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-class Github_Create_Schema {
+class Githubdeploys_Create_Schema {
 
     /**
      * Make changes to the database.

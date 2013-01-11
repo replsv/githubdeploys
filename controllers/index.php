@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-use Github\Model\Deploys,
-    Github\Model\Projects,
-    Github\Deploy,
+use Githubdeploys\Model\Deploys,
+    Githubdeploys\Model\Projects,
+    Githubdeploys\Deploy,
     Orchestra\Messages,
     Orchestra\View;
 
-class Github_Index_Controller extends Controller {
+class Githubdeploys_Index_Controller extends Controller {
 
     /**
      * 
@@ -30,14 +30,14 @@ class Github_Index_Controller extends Controller {
      */
     public function get_index() {
 
-        View::share('_title_', 'Github Deploys Projects');
+        View::share('_title_', 'Githubdeploys Deploys Projects');
 
         $projects = new Projects();
         $data = array(
             'projects' => $projects->getProjects(),
         );
 
-        return View::make('github::github.index-index', $data);
+        return View::make('githubdeploys::githubdeploys.index-index', $data);
     }
 
     /**
@@ -53,7 +53,7 @@ class Github_Index_Controller extends Controller {
             if (!$project) {
                 $m = new Messages;
                 $m->add('error', "Unknown project!");
-                return Redirect::to(handles('orchestra::resources/github'))
+                return Redirect::to(handles('orchestra::resources/githubdeploys'))
                                 ->with('message', $m->serialize());
             }
             View::share('_title_', "Edit project");
@@ -70,7 +70,7 @@ class Github_Index_Controller extends Controller {
             );
         }
 
-        return View::make('github::github.index-manage', $data);
+        return View::make('githubdeploys::githubdeploys.index-manage', $data);
     }
 
     /**
@@ -104,7 +104,7 @@ class Github_Index_Controller extends Controller {
         $v = Validator::make($input, $rules);
 
         if ($v->fails()) {
-            return Redirect::to(handles('orchestra::resources/github/manage/' . $input['id']))
+            return Redirect::to(handles('orchestra::resources/githubdeploys/manage/' . $input['id']))
                             ->with_input()
                             ->with_errors($v);
         }
@@ -129,7 +129,7 @@ class Github_Index_Controller extends Controller {
 
         $m->add('success', "Project modified!");
 
-        return Redirect::to(handles('orchestra::resources/github'))
+        return Redirect::to(handles('orchestra::resources/githubdeploys'))
                         ->with('message', $m->serialize());
     }
 
@@ -153,7 +153,7 @@ class Github_Index_Controller extends Controller {
 
         if (!$project) {
             $m->add('error', "Unknown project!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
 
@@ -166,7 +166,7 @@ class Github_Index_Controller extends Controller {
                 $m->add('error', $error);
             }
 
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         } else {
             $hash = $response->hash;
@@ -182,7 +182,7 @@ class Github_Index_Controller extends Controller {
 
         $m->add('success', 'Deploy succedeed!');
 
-        return Redirect::to(handles('orchestra::resources/github.releases/view/' . $deploy->id))
+        return Redirect::to(handles('orchestra::resources/githubdeploys.releases/view/' . $deploy->id))
                         ->with('message', $m->serialize());
     }
 
@@ -198,11 +198,11 @@ class Github_Index_Controller extends Controller {
         $m = new Messages;
         if (!$project) {
             $m->add('error', "Unknown project!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
         
-        $proj = new Github\Release;
+        $proj = new Githubdeploys\Release;
         $proj->deleteProject($project);
         
         if($project->delete()) {
@@ -214,7 +214,7 @@ class Github_Index_Controller extends Controller {
             $m->add('error', "Could not remove project from the database!");
         }
         
-        return Redirect::to(handles('orchestra::resources/github'))
+        return Redirect::to(handles('orchestra::resources/githubdeploys'))
                         ->with('message', $m->serialize());
         
     }

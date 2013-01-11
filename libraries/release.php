@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-namespace Github;
+namespace Githubdeploys;
 
 class Release {
     
@@ -17,7 +17,7 @@ class Release {
      * @param $project
      * @return string
      */
-    public function getCurrentRelease(\Github\Model\Projects $project) {
+    public function getCurrentRelease(\Githubdeploys\Model\Projects $project) {
         
         if(!file_exists($project->path)) {            
             return '';
@@ -35,11 +35,11 @@ class Release {
     /**
      * 
      * Move the chosen release in production.
-     * @param \Github\Model\Projects $project
-     * @param \Github\Model\Deploys $release
+     * @param \Githubdeploys\Model\Projects $project
+     * @param \Githubdeploys\Model\Deploys $release
      * @return string
      */
-    public function moveInProduction(\Github\Model\Projects $project, \Github\Model\Deploys $release) {
+    public function moveInProduction(\Githubdeploys\Model\Projects $project, \Githubdeploys\Model\Deploys $release) {
         
         $productionPath = $project->path . 'current-release';
         $releasePath = $project->path . 'releases/' . $release->release;
@@ -74,11 +74,11 @@ class Release {
     /**
      * 
      * Make a simple 'git pull' for the initialised repo.
-     * @param \Github\Model\Projects $project
-     * @param \Github\Model\Deploys $release
+     * @param \Githubdeploys\Model\Projects $project
+     * @param \Githubdeploys\Model\Deploys $release
      * @return type
      */
-    public function pull(\Github\Model\Projects $project, \Github\Model\Deploys $release) {
+    public function pull(\Githubdeploys\Model\Projects $project, \Githubdeploys\Model\Deploys $release) {
         
         $releasePath = $project->path . 'releases/' . $release->release;
         $command = sprintf("cd %s && git pull", $releasePath);
@@ -91,11 +91,11 @@ class Release {
     /**
      * 
      * Delete the release.
-     * @param \Github\Model\Projects $project
+     * @param \Githubdeploys\Model\Projects $project
      * @param type $release
      * @return type
      */
-    public function deleteRelease(\Github\Model\Projects $project, $release) {
+    public function deleteRelease(\Githubdeploys\Model\Projects $project, $release) {
         
         $return = array();
         $releasePath = $project->path . 'releases/' . $release->release;
@@ -131,9 +131,9 @@ class Release {
      * 
      * Delete project's path.
      * We filter to get absolute path. exec used to remove the whole dir recursive.
-     * @param \Github\Model\Projects $project
+     * @param \Githubdeploys\Model\Projects $project
      */
-    public function deleteProject(\Github\Model\Projects $project) {
+    public function deleteProject(\Githubdeploys\Model\Projects $project) {
         
         $path = $project->path;
         if(substr($path, strlen($path)-1) === '/') {

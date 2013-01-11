@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-namespace Github\Model;
+namespace Githubdeploys\Model;
 
 use \Config,
     \Eloquent;
@@ -21,7 +21,7 @@ class Projects extends Eloquent {
      * Load the project and join the owner.
      * 
      * @param type $id
-     * @return Github\Model\Projects
+     * @return Githubdeploys\Model\Projects
      */
     public static function identity($id) {
         return static::with('users')->where('id', '=', $id)->get();
@@ -31,7 +31,7 @@ class Projects extends Eloquent {
      * 
      * Get a collection of projects.
      * 
-     * @return Github\Model\Projects
+     * @return Githubdeploys\Model\Projects
      */
     public function getProjects() {
         return static::with('users')

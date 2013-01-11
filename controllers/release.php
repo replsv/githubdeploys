@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-use Github\Model\Deploys,
-    Github\Model\Projects,
-    Github\Deploy,
+use Githubdeploys\Model\Deploys,
+    Githubdeploys\Model\Projects,
+    Githubdeploys\Deploy,
     Orchestra\Messages,
     Orchestra\View;
 
-class Github_Release_Controller extends Controller {
+class Githubdeploys_Release_Controller extends Controller {
 
     /**
      * 
@@ -35,11 +35,11 @@ class Github_Release_Controller extends Controller {
         if (!$project) {
             $m = new Messages;
             $m->add('error', "Unknown project!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
 
-        $rel = new \Github\Release;
+        $rel = new \Githubdeploys\Release;
         $currentRelease = $rel->getCurrentRelease($project);
 
         $releases = Deploys::getDeploysByProject($id);
@@ -52,7 +52,7 @@ class Github_Release_Controller extends Controller {
             'currentRelease' => $currentRelease,
         );
 
-        return View::make('github::github.releases-index', $data);
+        return View::make('githubdeploys::githubdeploys.releases-index', $data);
     }
 
     /**
@@ -68,12 +68,12 @@ class Github_Release_Controller extends Controller {
         if (!$release) {
             $m = new Messages;
             $m->add('error', "Unknown release!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
         $project = (object) $release[0]->relationships['projects'];
         $release = (object) $release[0]->attributes;
-        $rel = new \Github\Release;
+        $rel = new \Githubdeploys\Release;
         $currentRelease = $rel->getCurrentRelease($project);
 
         $data = array(
@@ -82,7 +82,7 @@ class Github_Release_Controller extends Controller {
             'currentRelease' => $currentRelease,
         );
 
-        return View::make('github::github.releases-view', $data);
+        return View::make('githubdeploys::githubdeploys.releases-view', $data);
     }
 
     /**
@@ -98,12 +98,12 @@ class Github_Release_Controller extends Controller {
         if (!$release) {
             $m = new Messages;
             $m->add('error', "Unknown release!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
         $project = Projects::find($release->project_id);
 
-        $rel = new \Github\Release;
+        $rel = new \Githubdeploys\Release;
         $response = $rel->moveInProduction($project, $release);
 
         $m = new Messages;
@@ -134,12 +134,12 @@ class Github_Release_Controller extends Controller {
         if (!$release) {
             $m = new Messages;
             $m->add('error', "Unknown release!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
         $project = Projects::find($release->project_id);
 
-        $rel = new \Github\Release;
+        $rel = new \Githubdeploys\Release;
         $response = $rel->pull($project, $release);
 
         $m = new Messages;
@@ -165,12 +165,12 @@ class Github_Release_Controller extends Controller {
         if (!$release) {
             $m = new Messages;
             $m->add('error', "Unknown release!");
-            return Redirect::to(handles('orchestra::resources/github'))
+            return Redirect::to(handles('orchestra::resources/githubdeploys'))
                             ->with('message', $m->serialize());
         }
         $project = (object) $release[0]->relationships['projects'];
         $release = (object) $release[0]->attributes;
-        $rel = new \Github\Release;
+        $rel = new \Githubdeploys\Release;
         $response = $rel->deleteRelease($project, $release);
 
         $m = new Messages;
@@ -186,7 +186,7 @@ class Github_Release_Controller extends Controller {
             
             /*
              * We have to reinitialise $release because it's not an instance
-             * of the model \Github\Deploys anymore. Read above the code^
+             * of the model \Githubdeploys\Deploys anymore. Read above the code^
              */
             if (Deploys::find($release->id)->delete()) {
                 $m->add('success', sprintf("Release %i (%s) has been deleted from the database.", $release->id, $release->release));

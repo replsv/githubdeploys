@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of the Github-Deploy Laravel Package.
+ * This file is part of the Githubdeploys-Deploy Laravel Package.
  *
  * (c) Gabriel C. <lazycoder.ro@gmail.com>
  *
  */
 
-namespace Github\Model;
+namespace Githubdeploys\Model;
 
 use \Config,
     \Eloquent;
@@ -65,7 +65,7 @@ class Deploys extends Eloquent {
      * @return type
      */    
     public function projects() {
-        return $this->belongs_to('Github\Model\Projects', 'project_id');
+        return $this->belongs_to('Githubdeploys\Model\Projects', 'project_id');
     }
 
 }
